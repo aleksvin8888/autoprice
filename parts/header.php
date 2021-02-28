@@ -66,9 +66,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                          <i class="fal fa-chevron-down"></i>
                                         </a>
                                         <ul class="expand-dropdown-menu dropdown-menu">
-                                            <li><a href="my-account.php">мой кабинет</a></li>
-                                            <li><a href="wishlist.php">мои избраные</a></li>
-                                            <li><a href="checkout.php">подтвердить заказ</a></li>
+                                            <li><a href="contact.php" >Связаться с нами</a></li>
+                                            <li><a href="about.php" >О нас</a></li>
+                                            <li><a href="#">резерв 1</a></li>
+                                            <li><a href="#">резерв 2</a></li>
+                                            <li><a href="#">резерв 3</a></li>
+                                            <li><a href="#">резерв 4</a></li>
                                         </ul>
                                     </div> <!-- конец меню пользователя -->
                                     <!-- меню валют -->
@@ -106,6 +109,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                                 <li><a href="my-account.php">мой кабинет</a></li>
                                                 <li><a href="wishlist.php">мои избраные</a></li>
                                                 <li><a href="checkout.php">подтвердить заказ</a></li>
+                                                <li><a href="cart.php">корзина</a></li>
                                                 <li><a href="modules/php/user/userlogout.php">ВЫЙТИ</a></li>
                                             </ul>
                                       
@@ -218,8 +222,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                 <li class="header__nav-item pos-relative">
                                     <a href="index.php" class="header__nav-link">Главная </a>    
                                 </li> <!-- End Single Nav link-->
-
-
                                  <!--Start Каталог товаров -->
                                 <li class="header__nav-item pos-relative">
                                     <!-- заголовок -->
@@ -262,22 +264,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                     </ul>
                                     <!--End списокa категорий товаров -->
                                 </li> <!-- End Каталог товаров-->
-
-
-                                <!--Start Single Nav link-->
-                                <li class="header__nav-item pos-relative">
-                                     <a href="about.php" class="header__nav-link">О нас</a>
-                                </li> <!-- End Single Nav link-->
-                                <!--Start Single Nav link-->
-                                <li class="header__nav-item pos-relative">
-                                     <a href="contact.php" class="header__nav-link">Связаться с нами</a>
-                                </li> <!-- End Single Nav link-->
                                 <li class="header__nav-item pos-relative">
                                      <a href="#" class="header__nav-link">Акцыи</a>
-                                </li> <!-- End Single Nav link-->
+                                </li> 
                                 <li class="header__nav-item pos-relative">
                                      <a href="#" class="header__nav-link">Сезонное предложения</a>
-                                </li> <!-- End Single Nav link-->
+                                </li> 
                                 
                                 
                             </ul>
@@ -292,227 +284,56 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <!-- Start Header Mobile Top area -->
                         <div class="header__mobile-top">
+                            <!-- Start Блгок логотипа -->
                             <div class="mobile-header__logo">
                                 <a href="index.php" class="mobile-header__logo-link">
-                                    <img src="assets/img/logo/logo-color.jpg" alt="" class="mobile-header__logo-img">
+                                    <img src="assets/img/logo/logo1.jpg" alt="" class="mobile-header__logo-img">
                                 </a>
                             </div>
                             <div class="header__wishlist-box">
-                                <!-- Start Header Wishlist Box -->
+                                <!-- Start иконка для избраных товаров -->
+                                 <?php
+                                    if(isset($_COOKIE['countWish'])){
+                                        $countWish = $_COOKIE['countWish'];
+                                    }else{
+                                        $countWish =0;
+                                    }
+                                ?>
                                 <div class="header__wishlist pos-relative">
                                     <a href="wishlist.php" class="header__wishlist-link">
                                         <i class="icon-heart"></i>
-                                        <span class="wishlist-item-count pos-absolute">3</span>
+                                        <span class="wishlist-item-count pos-absolute"><?php echo $countWish?></span>
                                     </a>
-                                </div> <!-- End Header Wishlist Box -->
+                                </div> <!-- End иконка для избраных товаров -->
 
-                                <!-- Start Header Add Cart Box -->
+                                <!-- Start иконка корзины-->
+                                <?php 
+                                    if (isset($_COOKIE['basket'])) {
+                                        $arrayBasket = json_decode($_COOKIE['basket'], true);
+                                        $countProduct = count($arrayBasket['basket']); 
+                                    } else {
+                                        $countProduct = "0";
+                                    }
+                                ?>
                                 <div class="header-add-cart pos-relative m-l-20">
-                                    <a href="#offcanvas-add-cart__box" class="header__wishlist-link offcanvas--open-checkout offcanvas-toggle">
+                                    <a  href="#offcanvas-add-cart__box" class="header__wishlist-link offcanvas--open-checkout offcanvas-toggle">
                                         <i class="icon-shopping-cart"></i>
-                                        <span class="wishlist-item-count pos-absolute">3</span>
+                                        <span class="wishlist-item-count pos-absolute"> <?php echo $countProduct?></span>
                                     </a>
-                                </div> <!-- End Header Add Cart Box -->
+                                </div> <!-- End иконка корзины -->
 
                                 <a href="#offcanvas-mobile-menu" class="offcanvas-toggle m-l-20"><i class="icon-menu"></i></a>
 
                             </div>
                         </div> <!-- End Header Mobile Top area -->
 
-                        <!-- Start Header Mobile Middle area -->
+                        <!-- Start Header роздел поиска по сайту -->
                         <div class="header__mobile-middle header__top--style-1 p-tb-10">
                             <form class="header__search-form" action="#">
                                 <div class="header__search-category header__search-category--mobile">
                                     <select class="bootstrap-select">
-                                        <option value="0">All</option>
-                                        <option value="12">
-                                            Fashion
-                                        </option>
-                                        <option value="27">
-                                            - - Women
-                                        </option>
-                                        <option value="30">
-                                            - - - - Dresses
-                                        </option>
-                                        <option value="31">
-                                            - - - - Shirts &amp; Blouses
-                                        </option>
-                                        <option value="32">
-                                            - - - - Blazers
-                                        </option>
-                                        <option value="33">
-                                            - - - - Lingerie
-                                        </option>
-                                        <option value="34">
-                                            - - - - Jeans
-                                        </option>
-                                        <option value="28">
-                                            - - Men
-                                        </option>
-                                        <option value="35">
-                                            - - - - Shorts
-                                        </option>
-                                        <option value="36">
-                                            - - - - Sportswear
-                                        </option>
-                                        <option value="37">
-                                            - - - - Swimwear
-                                        </option>
-                                        <option value="38">
-                                            - - - - Jackets &amp; Suits
-                                        </option>
-                                        <option value="39">
-                                            - - - - T-shirts &amp; Tank Tops
-                                        </option>
-                                        <option value="29">
-                                            - - Kids
-                                        </option>
-                                        <option value="40">
-                                            - - - - Trousers
-                                        </option>
-                                        <option value="41">
-                                            - - - - Shirts &amp; Tops
-                                        </option>
-                                        <option value="42">
-                                            - - - - Knitwear
-                                        </option>
-                                        <option value="43">
-                                            - - - - Jackets
-                                        </option>
-                                        <option value="44">
-                                            - - - - Sandals
-                                        </option>
-                                        <option value="13">
-                                            Electronics
-                                        </option>
-                                        <option value="45">
-                                            - - Cameras
-                                        </option>
-                                        <option value="49">
-                                            - - - - Cords and Cables
-                                        </option>
-                                        <option value="50">
-                                            - - - - gps accessories
-                                        </option>
-                                        <option value="51">
-                                            - - - - Microphones
-                                        </option>
-                                        <option value="52">
-                                            - - - - Wireless Transmitters
-                                        </option>
-                                        <option value="46">
-                                            - - Audio
-                                        </option>
-                                        <option value="53">
-                                            - - - - Other Accessories
-                                        </option>
-                                        <option value="54">
-                                            - - - - Portable Audio
-                                        </option>
-                                        <option value="55">
-                                            - - - - Satellite Radio
-                                        </option>
-                                        <option value="56">
-                                            - - - - Visual Accessories
-                                        </option>
-                                        <option value="47">
-                                            - - Cell Phones
-                                        </option>
-                                        <option value="57">
-                                            - - - - iPhone
-                                        </option>
-                                        <option value="58">
-                                            - - - - Samsung Galaxy
-                                        </option>
-                                        <option value="59">
-                                            - - - - SIM Cards
-                                        </option>
-                                        <option value="60">
-                                            - - - - Prepaid Cell Phones
-                                        </option>
-                                        <option value="48">
-                                            - - TV &amp; Video
-                                        </option>
-                                        <option value="61">
-                                            - - - - 4K Ultra HDTVs
-                                        </option>
-                                        <option value="62">
-                                            - - - - All TVs
-                                        </option>
-                                        <option value="63">
-                                            - - - - Refurbished TVs
-                                        </option>
-                                        <option value="64">
-                                            - - - - TV Accessories
-                                        </option>
-                                        <option value="14">
-                                            Toys &amp; Hobbies
-                                        </option>
-                                        <option value="65">
-                                            - - Books &amp; Board Games
-                                        </option>
-                                        <option value="67">
-                                            - - - - Arts &amp; Crafts
-                                        </option>
-                                        <option value="68">
-                                            - - - - Baby &amp; Toddler Toys
-                                        </option>
-                                        <option value="69">
-                                            - - - - Electronics for Kids
-                                        </option>
-                                        <option value="70">
-                                            - - - - Dolls &amp; Accessories
-                                        </option>
-                                        <option value="66">
-                                            - - Baby Dolls
-                                        </option>
-                                        <option value="71">
-                                            - - - - Baby Alive Dolls
-                                        </option>
-                                        <option value="72">
-                                            - - - - Barbie
-                                        </option>
-                                        <option value="73">
-                                            - - - - Baby Annabell
-                                        </option>
-                                        <option value="74">
-                                            - - - - Bratz
-                                        </option>
-                                        <option value="15">
-                                            Sports &amp; Outdoors
-                                        </option>
-                                        <option value="16">
-                                            Smartphone &amp; Tablets
-                                        </option>
-                                        <option value="17">
-                                            Health &amp; Beauty
-                                        </option>
-                                        <option value="18">
-                                            Computers &amp; Networking
-                                        </option>
-                                        <option value="19">
-                                            Accessories
-                                        </option>
-                                        <option value="20">
-                                            Jewelry &amp; Watches
-                                        </option>
-                                        <option value="21">
-                                            Flashlights &amp; Lamps
-                                        </option>
-                                        <option value="22">
-                                            Cameras &amp; Photo
-                                        </option>
-                                        <option value="23">
-                                            Holiday Supplies &amp; Gifts
-                                        </option>
-                                        <option value="24">
-                                            Automotive
-                                        </option>
-                                        <option value="25">
-                                            cosmetic
-                                        </option>
+                                       
                                     </select>
                                 </div>
                                 <div class="header__search-input header__search-input--mobile">
@@ -520,7 +341,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                     <button class="btn btn--submit btn--blue btn--uppercase btn--weight" type="submit"><i class="fal fa-search"></i></button>
                                 </div>
                             </form>
-                        </div> <!-- End Header Mobile Middle area -->
+                        </div> <!-- End Header роздел поиска по сайту  -->
 
                     </div>
                 </div>
@@ -533,13 +354,40 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
             <div class="offcanvas-inner">
                 <div class="offcanvas-userpanel m-b-30">
                     <ul>
+                         <?php
+                            // Если существует переменная $_COOKIE["user_id"] (Пользователь в системе)
+                            if(isset($_COOKIE["user_id"])) {
+                                $sql = "SELECT * FROM user WHERE id =" . $_COOKIE["user_id"];
+                                $result = $conn->query($sql);
+                                $user = mysqli_fetch_assoc($result);
+                        ?>
                         <li class="offcanvas-userpanel__role">
-                            <a href="#">Setting</a>
+                            <a href="#"><?php echo $user["name"]; ?></a>
                             <ul class="user-sub-menu">
-                                <li><a href="my-account.php">My account</a></li>
-                                <li><a href="wishlist.php">My wishlist</a></li>
-                                <li><a href="checkout.php">Checkout</a></li>
-                                <li><a href="login.php">Sign in</a></li>
+                                <li><a href="my-account.php">мой кабинет</a></li>
+                                <li><a href="wishlist.php">мои избраные</a></li>
+                                <li><a href="checkout.php">подтвердить заказ</a></li>
+                                <li><a href="cart.php">корзина</a></li>
+                                <li><a href="modules/php/user/userlogout.php">ВЫЙТИ</a></li>
+                            </ul>
+                        </li>
+                        <?php
+                        } else {
+                            ?>
+                                <li><a href="/login.php">Войти</a></li> 
+                            <?php
+                            }
+                            ?>   
+                        
+                        <li class="offcanvas-userpanel__role">
+                            <a href="#">меню</a>
+                            <ul class="user-sub-menu">
+                                <li><a href="contact.php" >Связаться с нами</a></li>
+                                <li><a href="about.php" >О нас</a></li>
+                                <li><a href="#">резерв 1</a></li>
+                                <li><a href="#">резерв 2</a></li>
+                                <li><a href="#">резерв 3</a></li>
+                                <li><a href="#">резерв 4</a></li>
                             </ul>
                         </li>
                         <li class="offcanvas-userpanel__role">
@@ -558,101 +406,56 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                         </li>
                     </ul>
                 </div>
-                
                 <div class="offcanvas-menu m-b-30">
-                    <h4>Menu</h4>
+                    <h4>Меню</h4>
                     <ul>
                         <li>
-                            <a href="#"><span>Home</span></a>
+                            <a href="index.php"><span>Главная</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span>Каталог товаров</span></a>
                             <ul class="sub-menu">
-                                <li><a href="index.php"><span class="menu-text">Home 1</span></a></li>
-                                <li><a href="index-2.php"><span class="menu-text">Home 2</span></a></li>
-                                <li> <a href="index-3.php"><span class="menu-text">Home 3</span></a></li>
-                                <li><a href="index-4.php"><span class="menu-text">Home 4</span></a></li>
+                                <?php
+                                    $sql_title = "SELECT * FROM cat ";
+                                    $res_title = $conn-> query($sql_title);
+                                    $count_title = mysqli_num_rows($res_title);
+                                    for($i = 0; $i < $count_title; $i++) {
+                                        $cat_title = mysqli_fetch_assoc($res_title);
+                                ?>
+                                        <li>
+                                            <a href="cat-lv2.php?catid= <?php echo $cat_title['id']; ?> ">
+                                                <?php echo $cat_title['title']; ?>
+                                            </a>
+                                            <ul class="sub-menu" >
+                                                <?php
+                                                // запрос для получения подкатегори cat_lv2
+                                                $sql_lv2 = "SELECT * FROM cat_lv2
+                                                         WHERE id_cat=" . $cat_title['id']; 
+                                                $res_lv2 = $conn-> query($sql_lv2);
+                                                while ( $cat_lv2 = mysqli_fetch_assoc($res_lv2) ) {
+                                                    ?>
+                                                    <li >
+                                                         <a  href="cat.php?catlv2id= <?php echo $cat_lv2['id']; ?>" >
+                                                         <?php echo $cat_lv2['title']; ?>
+                                                        </a>
+                                                    </li>
+                                                   <?php
+                                               }
+                                                ?>
+                                            </ul>
+                                        </li>
+                                <?php
+                                    }
+                                ?>
+                               
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><span>Pages</span></a>
-                            <ul class="sub-menu">
-                                <li><a href="about.php">About</a></li>
-                                <li><a href="cart.php">Cart</a></li>
-                                <li><a href="checkout.php">Checkout</a></li>
-                                <li><a href="compare.php">Compare</a></li>
-                                <li><a href="empty-cart.php">Empty Cart</a></li>
-                                <li><a href="wishlist.php">Wishlist</a></li>
-                                <li><a href="my-account.php">My Account</a></li>
-                                <li><a href="login.php">Login</a></li>
-                                <li><a href="404-page.php">404 Page</a></li>
-                            </ul>
+                            <a href="#" >Акцыи</a>
                         </li>
                         <li>
-                            <a href="#"><span>Shop</span></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Shop Grid</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop-1.php">Shop Default</a></li>
-                                        <li><a href="shop-4-grid.php">Shop 4grid</a></li>
-                                        <li><a href="shop-5-grid.php">Shop 5grid</a></li>
-                                        <li><a href="shop-grid-left-sidebar.php">Shop Left Sidebar</a></li>
-                                        <li><a href="shop-grid-right-sidebar.php">Shop Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Shop List</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop-list.php">Shop List</a></li>
-                                        <li><a href="shop-list-left-sidebar.php">Shop Left Sidebar</a></li>
-                                        <li><a href="shop-list-right-sidebar.php">Shop Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Product Single</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="single-1.php">Single</a></li>
-                                        <li><a href="single-variable.php">Variable</a></li>
-                                        <li><a href="single-left-tab.php">Left Tab</a></li>
-                                        <li><a href="single-right-tab.php">Right Tab</a></li>
-                                        <li><a href="single-slider.php">Single Slider</a></li>
-                                        <li><a href="single-gallery-left.php">Gallery Left</a></li>
-                                        <li><a href="single-gallery-right.php">Gallery Right</a></li>
-                                        <li><a href="single-sticky-left.php">Sticky Left</a></li>
-                                        <li><a href="single-sticky-right.php">Sticky Right</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <a href="#" >Сезонное предложения</a>
                         </li>
-                        <li>
-                            <a href="#"><span>Blogs</span></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Blog Grid</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-grid-left-sidebar.php"> Blog Grid Left Sidebar</a></li>
-                                        <li><a href="blog-grid-right-sidebar.php"> Blog Grid Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Blog List</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-list-left-sidebar.php"> Blog List Left Sidebar</a></li>
-                                        <li><a href="blog-list-right-sidebar.php"> Blog List Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="">Blog Single</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-single-left-sidebar.php"> Blog List Left Sidebar</a></li>
-                                        <li><a href="blog-single-right-sidebar.php"> Blog List Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.php">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="offcanvas-buttons m-b-30">
@@ -682,41 +485,67 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
 
          <!-- ::::::  Start Правый модальное окно для корзины  ::::::  -->
         <div  id="offcanvas-add-cart__box" class="offcanvas offcanvas-cart offcanvas-add-cart">
-            <div class="offcanvas-add-cart__top m-b-40">
-                <span class="offcanvas-add-cart__top-text"><i class="icon-shopping-cart"></i> Total Items: 4</span>
+            <?php 
+                if (isset($_COOKIE['basket'])) {
+                    $arrayBasket = json_decode($_COOKIE['basket'], true);
+                    $countProduct = count($arrayBasket['basket']); 
+                } else {
+                    $countProduct = "0";
+                }
+            ?>
+            <div id="offcanvas_add_cart" class="offcanvas-add-cart__top m-b-40">
+                <span class="offcanvas-add-cart__top-text"><i class="icon-shopping-cart"></i> Товаров в корзине: <p> <?php echo $countProduct?></p></span>
                 <button class=" offcanvas-close">&times;</button>
             </div>
-            <!-- Start Add Cart Item Box-->
+            <!-- Start  товары в корзине  -->
             <ul class="offcanvas-add-cart__menu">
-                <!-- Start Single Add Cart Item-->
-                <li class="offcanvas-add-cart__list pos-relative">
-                    <div class="offcanvas-add-cart__img-box pos-relative">
-                        <a href="single-1.html" class="offcanvas-add-cart__img-link img-responsive"><img src="assets/img/product/size-small/product-home-1-img-1.jpg" alt="" class="add-cart__img"></a>
-                        <span class="offcanvas-add-cart__item-count pos-absolute">2x</span>
-                    </div>
-                    <div class="offcanvas-add-cart__detail">
-                        <a href="single-1.html" class="offcanvas-add-cart__link">PlayStation 4 Pro 1TB Star Wars Battlefront II Bundle</a>
-                        <span class="offcanvas-add-cart__price">$29.00</span>
-                        <span class="offcanvas-add-cart__info">Dimension: 40x60cm</span>
+                <?php
+                if (isset($_COOKIE['basket'])) {
+                    $arrayBasket = json_decode($_COOKIE['basket'], true);
+                    for ($i=0; $i < count($arrayBasket["basket"]); $i++) {
+                        $sql_prod = "SELECT * FROM product WHERE id=" . $arrayBasket['basket'][$i]['product_id'];
+                        $res_prod = $conn->query($sql_prod);
+                        $product = mysqli_fetch_assoc($res_prod);
+                         // получить фото товара
+                        $sqlf = "SELECT path FROM img WHERE 
+                        ( id_produckt='" . $product['id'] . "' )
+                         ORDER BY id LIMIT 1 ";
+                         $resalt_f = $conn->query($sqlf);
+                         $foto = mysqli_fetch_assoc($resalt_f);
+                    ?>      
+                        <!-- Start карта товара -->
+                        <li class="offcanvas-add-cart__list pos-relative">
+                            <div class="offcanvas-add-cart__img-box pos-relative">
+                                <a href="single-1.php?prod_id= <?php echo $product['id'] ?>"
+                                 class="offcanvas-add-cart__img-link img-responsive">
+                                 <img src="assets/img/product/<?php echo $foto['path'] ?>" alt="" class="add-cart__img">
+                               </a>
+                            </div>
+                            <div class="offcanvas-add-cart__detail">
+                                <a href="single-1.php?prod_id= <?php echo $product['id'] ?>" class="offcanvas-add-cart__link">
+                                <?php echo $product['title'] ?>
+                                </a>
+                                <span class="offcanvas-add-cart__price">
+                                    <?php echo $product["price"] ?>
+                                        <p>  Грн.</p>
+                                    </span>
+                                
 
-                    </div>
-                    <button class="offcanvas-add-cart__item-dismiss pos-absolute">&times;</button>
-                </li> <!-- Start Single Add Cart Item-->
-                <!-- Start Single Add Cart Item-->
-                <li class="offcanvas-add-cart__list pos-relative">
-                    <div class="offcanvas-add-cart__img-box pos-relative">
-                        <a href="single-1.html" class="offcanvas-add-cart__img-link img-responsive"><img src="assets/img/product/size-small/product-home-1-img-2.jpg" alt="" class="add-cart__img"></a>
-                        <span class="offcanvas-add-cart__item-count pos-absolute">1x</span>
-                    </div>
-                    <div class="offcanvas-add-cart__detail">
-                        <a href="single-1.html" class="offcanvas-add-cart__link">PlayStation 4 Pro 1TB Star Wars Battlefront II Bundle</a>
-                        <span class="offcanvas-add-cart__price">$29.00</span>
-                        <span class="offcanvas-add-cart__info">Dimension: 40x60cm</span>
+                            </div>
+                            <button onclick="deleteProductBasket(this, <?php echo $product['id']; ?>)" class="offcanvas-add-cart__item-dismiss pos-absolute">&times;
+                            
+                            </button>
+                        </li> <!-- Start карта товара -->
 
-                    </div>
-                    <button class="offcanvas-add-cart__item-dismiss pos-absolute">&times;</button>
-                </li> <!-- Start Single Add Cart Item-->
-            </ul> <!-- Start Add Cart Item Box-->
+
+
+                    <?php
+                    }
+                }
+                ?>
+                
+            </ul> <!-- Start товары в корзине -->
+
             <!-- Start Add Cart Checkout Box-->
             <div class="offcanvas-add-cart__checkout-box-bottom">
                 <!-- Start offcanvas Add Cart Checkout Info-->

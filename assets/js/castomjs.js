@@ -39,7 +39,10 @@ var siytURL = "http://autoprice.local/";
 	var count = arrayBasket.length;
 	// выводим количество добвалених товаров в span корзины 
 	var btnGobasket = document.querySelector("#go-basket span");
-		btnGobasket.innerText = count;	
+		btnGobasket.innerText = count;
+	// выводим количество добвалених товаров в span модального окна корзины	
+	var offcanvasAddCart = document.querySelector("#offcanvas_add_cart span p");	
+		offcanvasAddCart.innerText = count;
  }
 
 // функцыя удалить товар из корзины
@@ -61,6 +64,9 @@ function deleteProductBasket(obj, id) {
 	// выводим количество добвалених товаров в span корзины 
 	var btnGobasket = document.querySelector("#go-basket span");
 		btnGobasket.innerText = count;
+	// выводим количество добвалених товаров в span модального окна корзины	
+	var offcanvasAddCart = document.querySelector("#offcanvas_add_cart span p");	
+		offcanvasAddCart.innerText = count;	
 }
 
 // функцыя изменить количество товара в  корзине 
