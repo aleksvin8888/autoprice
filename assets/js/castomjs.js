@@ -19,8 +19,14 @@ var siytURL = "http://autoprice.local/";
 	$('#modalAddCart').modal('show');
  }
 
-
-
+function showOffcanvasAddCartMenu() {
+	var ajaxOffcanvasAdd = new XMLHttpRequest();
+	ajaxOffcanvasAdd.open("POST", siytURL + "/modules/php/basket/showOffcanvasAddCartMenu.php", false);
+	ajaxOffcanvasAdd.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	ajaxOffcanvasAdd.send("id_prod= show" );
+	var offcanvasAddCartMenu = document.querySelector(".offcanvas-add-cart__menu");
+	offcanvasAddCartMenu.innerHTML = ajaxOffcanvasAdd.response;
+}
 
 // функцыя  добавить товар в корзину 
  function addToBasket(a) {
@@ -41,8 +47,11 @@ var siytURL = "http://autoprice.local/";
 	var btnGobasket = document.querySelector("#go-basket span");
 		btnGobasket.innerText = count;
 	// выводим количество добвалених товаров в span модального окна корзины	
-	var offcanvasAddCart = document.querySelector("#offcanvas_add_cart span p");	
-		offcanvasAddCart.innerText = count;
+	 var offcanvasAddCart = document.querySelector(".offcanvas-add-cart__top-text ");
+	 offcanvasAddCart.innerText = "Товаров в корзине: " + count;
+	// делаем второй запрос для отображения товаров в боковой карточке корзины 
+	showOffcanvasAddCartMenu();
+
  }
 
 // функцыя удалить товар из корзины
@@ -65,8 +74,10 @@ function deleteProductBasket(obj, id) {
 	var btnGobasket = document.querySelector("#go-basket span");
 		btnGobasket.innerText = count;
 	// выводим количество добвалених товаров в span модального окна корзины	
-	var offcanvasAddCart = document.querySelector("#offcanvas_add_cart span p");	
-		offcanvasAddCart.innerText = count;	
+	 var offcanvasAddCart = document.querySelector(".offcanvas-add-cart__top-text");	
+	 	offcanvasAddCart.innerText = "Товаров в корзине: " + count;	
+	 // делаем второй запрос для отображения товаров в боковой карточке корзины 
+	showOffcanvasAddCartMenu();
 }
 
 // функцыя изменить количество товара в  корзине 
@@ -95,7 +106,7 @@ function chengCount(obj, id) {
 			// выберем елемент для отображения общей стоимости 
 			var totalCost = document.getElementById("count#" + id);
 			// отобразим общю стоимось товара согласно новом количестве 
-			totalCost.innerText = price.innerText * response.basket[i]['count']
+			totalCost.innerText = price.innerText * response.basket[i]['count'];
 		}
 	}
 }
