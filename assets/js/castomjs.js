@@ -19,6 +19,8 @@ var siytURL = "http://autoprice.local/";
 	$('#modalAddCart').modal('show');
  }
 
+
+// функцыя для отображения товаров в боковой карточке корзины 
 function showOffcanvasAddCartMenu() {
 	var ajaxOffcanvasAdd = new XMLHttpRequest();
 	ajaxOffcanvasAdd.open("POST", siytURL + "/modules/php/basket/showOffcanvasAddCartMenu.php", false);
@@ -79,6 +81,32 @@ function deleteProductBasket(obj, id) {
 	 // делаем второй запрос для отображения товаров в боковой карточке корзины 
 	showOffcanvasAddCartMenu();
 }
+
+
+// функцыя удалить товар из корзины клик в модальном окне боковой карточке корзины
+function deleteProductOffcanvasCart(obj, id) {
+	//создеем новый  елемент ajax 
+	var ajax = new XMLHttpRequest();
+		ajax.open("POST", siytURL + "/modules/php/basket/deleteProductOffcanvasCart.php", false);
+		ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		ajax.send("id_prod=" + id );
+	//для отображения товаров в боковой карточке корзины  запускаем 
+	showOffcanvasAddCartMenu();
+		// выбираем елемент аякса в которов храница масив id товаров из корзины
+ 	var response = JSON.parse(ajax.response);
+ 	// создаем переменную для самого масива
+	var arrayBasket = response.basket;
+	// запускаем счетчик для подсчета количества товаров в корзине 
+	var count = arrayBasket.length;
+	// выводим количество  товаров в span корзины 
+	var btnGobasket = document.querySelector("#go-basket span");
+		btnGobasket.innerText = count;
+	// выводим количество товаров в span модального окна корзины	
+	 var offcanvasAddCart = document.querySelector(".offcanvas-add-cart__top-text");	
+	 	offcanvasAddCart.innerText = "Товаров в корзине: " + count;	
+	 	
+}
+
 
 // функцыя изменить количество товара в  корзине 
 function chengCount(obj, id) {

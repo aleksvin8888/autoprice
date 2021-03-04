@@ -47,9 +47,13 @@
                                 
 
                             </div>
-                            <button  class="offcanvas-add-cart__item-dismiss pos-absolute">&times;
+                        
+                            <button id="offcanvasDeleteCartBox#<?php echo $product['id'] ?>" 
+                            onclick="deleteProductOffcanvasCart(this, <?php echo $product['id'] ?> )"   
+                             class="offcanvas-add-cart__item-dismiss pos-absolute">&times;
                             
                             </button>
+
                         </li> <!-- Start карта товара -->
 
 
@@ -88,7 +92,7 @@
                 </ul> <!-- End offcanvas Add Cart Checkout Info-->
 
                 <div class="offcanvas-add-cart__btn-checkout">
-                    <a href="checkout.html" class="btn btn--block btn--box btn--gray btn--large btn--uppercase btn--weight">Checkout</a>
+                    <a href="checkout.php" class="btn btn--block btn--box btn--gray btn--large btn--uppercase btn--weight">Оформить заказ</a>
                 </div>
             </div> <!-- End Add Cart Checkout Box-->
         </div>

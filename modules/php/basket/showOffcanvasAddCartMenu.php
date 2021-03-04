@@ -36,7 +36,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/configs/db.php';
                                 
 
                             </div>
-                            <button  class="offcanvas-add-cart__item-dismiss pos-absolute">&times;
+                            <button id="offcanvasDeleteCartBox#<?php echo $product['id'] ?>" 
+                            onclick="deleteProductOffcanvasCart(this, <?php echo $product['id'] ?> )"
+                             class="offcanvas-add-cart__item-dismiss pos-absolute">&times;
                             
                             </button>
                         </li> <!-- Start карта товара -->
