@@ -4,6 +4,51 @@
 var siytURL = "http://autoprice.local/";
 
 
+//  функцыя для поиска  cookie
+function get_cookie ( cookie_name ) {
+  var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+  if ( results )
+    return ( unescape ( results[2] ) );
+  else
+    return null;
+}
+
+// функцыя для сумирования числовых значений
+function sum() {
+  var sum = 0;
+  for (i=0; i<arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}	
+
+//  функцыя для отображения общей стоимости заказа 
+function totalOrderValue() {
+	// получим доступ к cookie basket
+	var basket = get_cookie ("basket");
+	// декодируем из JSON
+	var arraybasket = JSON.parse(basket);
+	// создадим масив для сумм товаров 
+	var arrayTotalOrder = new Array();
+
+	for (var i=0; i < arraybasket.basket.length; i++)  {
+		// получим елемент в которов отображена стоимость 1 позицыи 
+		var сost = document.getElementById("count#" + arraybasket.basket[i]['product_id']);
+		// приведем значения к числу 
+		var num = Number(сost.innerText);
+		// сложым сумы в масив
+		 arrayTotalOrder.push(num);		
+	}
+	// сумируем  масив
+	var TotalOrder = sum.apply(null, arrayTotalOrder);
+// выводим общю суму 
+console.log(TotalOrder);
+	var totalCost = document.querySelector(".total-cost span");
+	totalCost.innerText = TotalOrder;
+ 
+}
+
+
 // функцыя открыть модальное окно  товар добавлен в корзину 
  function openModalAddCart(a) {
  	// получаем id товара по которому был клик
@@ -54,6 +99,7 @@ function showOffcanvasAddCartMenu() {
 	// делаем второй запрос для отображения товаров в боковой карточке корзины 
 	showOffcanvasAddCartMenu();
 
+
  }
 
 // функцыя удалить товар из корзины
@@ -80,6 +126,7 @@ function deleteProductBasket(obj, id) {
 	 	offcanvasAddCart.innerText = "Товаров в корзине: " + count;	
 	 // делаем второй запрос для отображения товаров в боковой карточке корзины 
 	showOffcanvasAddCartMenu();
+	totalOrderValue();
 }
 
 
@@ -104,7 +151,7 @@ function deleteProductOffcanvasCart(obj, id) {
 	// выводим количество товаров в span модального окна корзины	
 	 var offcanvasAddCart = document.querySelector(".offcanvas-add-cart__top-text");	
 	 	offcanvasAddCart.innerText = "Товаров в корзине: " + count;	
-	 	
+		
 }
 
 
@@ -137,6 +184,7 @@ function chengCount(obj, id) {
 			totalCost.innerText = price.innerText * response.basket[i]['count'];
 		}
 	}
+	totalOrderValue();
 }
 	
 
