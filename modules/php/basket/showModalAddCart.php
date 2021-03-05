@@ -57,7 +57,7 @@ if (isset($_GET['id_prod'])) {
                             
                             <div class="modal__product-cart-buttons">
                                 <a href="#" class="btn btn--box btn--large btn--blue btn--uppercase btn--weight" data-dismiss="modal">Продолжить покупки</a>
-                                <a href="checkout.php" class="btn btn--box btn--large btn--blue btn--uppercase btn--weight">Оформить заказ</a>
+                                <a href="cart.php" class="btn btn--box btn--large btn--blue btn--uppercase btn--weight">Корзина</a>
                             </div>
                             
                         </div>
