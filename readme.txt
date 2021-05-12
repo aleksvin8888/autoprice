@@ -1,5 +1,8 @@
 my test work  "online shops"
 
+источник информацыи
+https://avtozvuk.ua/zvuk-i-video/c2207
+
 
 // index.php  -  главная страница   (  ГОТОВО    )
 // cat-lv2.php -  страница для отображения категрий 2-го  уровня   (  ГОТОВО  )
